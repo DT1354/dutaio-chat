@@ -10,6 +10,9 @@ ffmpeg.exe
 .DS_Store
 .env.local
 .env*.local
-# 原始大文件排除
+# 原始大文件排除（压缩版本在 *-compressed 目录中）
 public/assets/artworks/
 public/assets/photos/
+public/assets/dandelion-app/
+public/assets/knowledge-base/
+public/assets/jealousy 客户端/

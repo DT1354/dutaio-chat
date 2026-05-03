@@ -345,31 +345,31 @@ export const macroArtworks = allArtworks.filter(
 
 // APP截图
 export const appScreens = [
-  safePath("/assets/dandelion-app/微信图片_20260319112104_346_1319.webp"),
-  safePath("/assets/dandelion-app/微信图片_20260319112106_347_1319.webp"),
-  safePath("/assets/dandelion-app/微信图片_20260319112108_348_1319.webp"),
-  safePath("/assets/dandelion-app/微信图片_20260319112111_349_1319.webp"),
-  safePath("/assets/dandelion-app/微信图片_20260319112113_350_1319.webp"),
-  safePath("/assets/dandelion-app/微信图片_20260319112116_351_1319.webp"),
-  safePath("/assets/dandelion-app/微信图片_20260319112118_352_1319.webp"),
-  safePath("/assets/dandelion-app/微信图片_20260319112121_353_1319.webp"),
-  "/assets/dandelion-app/Gemini_Generated_Image_dn2xtqdn2xtqdn2x.webp",
+  safePath("/assets/dandelion-app-compressed/微信图片_20260319112104_346_1319.webp"),
+  safePath("/assets/dandelion-app-compressed/微信图片_20260319112106_347_1319.webp"),
+  safePath("/assets/dandelion-app-compressed/微信图片_20260319112108_348_1319.webp"),
+  safePath("/assets/dandelion-app-compressed/微信图片_20260319112111_349_1319.webp"),
+  safePath("/assets/dandelion-app-compressed/微信图片_20260319112113_350_1319.webp"),
+  safePath("/assets/dandelion-app-compressed/微信图片_20260319112116_351_1319.webp"),
+  safePath("/assets/dandelion-app-compressed/微信图片_20260319112118_352_1319.webp"),
+  safePath("/assets/dandelion-app-compressed/微信图片_20260319112121_353_1319.webp"),
+  "/assets/dandelion-app-compressed/Gemini_Generated_Image_dn2xtqdn2xtqdn2x.webp",
 ];
 
 // 个人照片
 export const personalPhotos = [
-  safePath("/assets/photos/黑白高端时尚肖像_真实面孔.webp"),
-  safePath("/assets/photos/微信图片_20260319112144_355_1319.webp"),
+  safePath("/assets/photos-compressed/黑白高端时尚肖像_真实面孔.webp"),
+  safePath("/assets/photos-compressed/微信图片_20260319112144_355_1319.webp"),
 ];
 
 // 知识库截图
 export const knowledgeBaseScreens = [
-  "/assets/knowledge-base/ai-kb.webp",
-  safePath("/assets/knowledge-base/AI学习知识库/AI学习知识库.webp"),
-  safePath("/assets/knowledge-base/AI学习知识库/屏幕截图 2026-05-02 114909.webp"),
-  safePath("/assets/knowledge-base/AI学习知识库/屏幕截图 2026-05-02 115006.webp"),
-  safePath("/assets/knowledge-base/个人笔记，摘录，思考知识库/屏幕截图 2026-05-02 115106.webp"),
-  safePath("/assets/knowledge-base/个人笔记，摘录，思考知识库/屏幕截图 2026-05-02 115203.webp"),
-  safePath("/assets/knowledge-base/个人笔记，摘录，思考知识库/屏幕截图 2026-05-02 115239.webp"),
-  safePath("/assets/knowledge-base/个人笔记，摘录，思考知识库/屏幕截图 2026-05-02 115319.webp"),
+  "/assets/knowledge-base-compressed/ai-kb.webp",
+  safePath("/assets/knowledge-base-compressed/AI学习知识库/AI学习知识库.webp"),
+  safePath("/assets/knowledge-base-compressed/AI学习知识库/屏幕截图 2026-05-02 114909.webp"),
+  safePath("/assets/knowledge-base-compressed/AI学习知识库/屏幕截图 2026-05-02 115006.webp"),
+  safePath("/assets/knowledge-base-compressed/个人笔记，摘录，思考知识库/屏幕截图 2026-05-02 115106.webp"),
+  safePath("/assets/knowledge-base-compressed/个人笔记，摘录，思考知识库/屏幕截图 2026-05-02 115203.webp"),
+  safePath("/assets/knowledge-base-compressed/个人笔记，摘录，思考知识库/屏幕截图 2026-05-02 115239.webp"),
+  safePath("/assets/knowledge-base-compressed/个人笔记，摘录，思考知识库/屏幕截图 2026-05-02 115319.webp"),
 ];
