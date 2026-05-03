@@ -30,8 +30,10 @@ export async function GET() {
       // 获取所有邮件 UID，然后取最新的50封
       let allUids: string[] | number[] = await client.search({ all: true });
       if (!allUids || allUids.length === 0) {
+        return NextResponse.json({ ok: true, synced: 0, message: "没有邮件" });
+      }
 
-console.log("所有邮件 UID 数量:", allUids.length);
+      console.log("所有邮件 UID 数量:", allUids.length);
 
       // 取最新的30封
       const recentUids = allUids.slice(-30);
