@@ -12,6 +12,4 @@ ffmpeg.exe
 .env*.local
 # 原始大文件排除
 public/assets/artworks/
-public/assets/videos/
-public/assets/bg-ink.mp4
 public/assets/photos/
