@@ -1,0 +1,5 @@
+<h2>你的验证码</h2>
+<p>你的注册验证码是：</p>
+<h1 style="font-size:32px;letter-spacing:4px;color:#c9a96e;">{{ .Token }}</h1>
+<p>验证码5分钟内有效，请勿泄露给他人。</p>
+<p style="color:#999;font-size:12px;">如果你没有注册 DANDELION 网站，请忽略此邮件。</p>

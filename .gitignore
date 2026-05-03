@@ -1,0 +1,17 @@
+node_modules/
+.next/
+out/
+reference-frames/
+.playwright-mcp/
+gh.exe
+ffmpeg.exe
+*.ps1
+*.exe
+.DS_Store
+.env.local
+.env*.local
+# 原始大文件排除
+public/assets/artworks/
+public/assets/videos/
+public/assets/bg-ink.mp4
+public/assets/photos/
