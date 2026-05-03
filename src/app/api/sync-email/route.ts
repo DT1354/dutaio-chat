@@ -27,13 +27,9 @@ export async function GET() {
     const lock = await client.getMailboxLock("INBOX");
 
     try {
-      // 获取最近50封邮件的 UID
-      const uids = await client.search({ recent: 50 });
-      // 如果上面的不行，用 all 然后手动取最新的
-      let allUids: string[] | number[] = uids;
+      // 获取所有邮件 UID，然后取最新的50封
+      let allUids: string[] | number[] = await client.search({ all: true });
       if (!allUids || allUids.length === 0) {
-        allUids = await client.search({ all: true });
-      }
 
 console.log("所有邮件 UID 数量:", allUids.length);
 
