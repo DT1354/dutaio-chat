@@ -846,18 +846,19 @@ a:hover { color: var(--accent-hover); }
   z-index: 9999;
 }
 
-/* 悬浮按钮 - 蒲公英种子形 */
+/* 悬浮按钮 - 蒲公英胶囊 */
 .chat-bubble {
   display: flex;
   align-items: center;
-  height: 50px;
-  width: 38px;
-  border-radius: 50% 50% 50% 50% / 65% 65% 25% 25%;
+  height: 48px;
+  min-width: 48px;
+  width: 48px;
+  border-radius: 24px;
   background: var(--accent);
   color: #0c0c0c;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(201, 169, 110, 0.2);
-  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.35s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 24px rgba(201, 169, 110, 0.2);
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, transform 0.2s ease;
   overflow: hidden;
   white-space: nowrap;
   padding: 0;
@@ -867,7 +868,7 @@ a:hover { color: var(--accent-hover); }
 }
 .chat-bubble svg {
   flex-shrink: 0;
-  margin: 0 12px;
+  margin: 0 16px;
 }
 .chat-bubble-seed {
   transition: transform 0.3s ease;
@@ -879,26 +880,25 @@ a:hover { color: var(--accent-hover); }
   letter-spacing: 0.02em;
   opacity: 0;
   transition: opacity 0.2s ease 0.1s;
-  margin-right: 16px;
+  margin-right: 18px;
 }
 .chat-bubble:hover {
-  width: 130px;
-  border-radius: 25px;
-  box-shadow: 0 6px 28px rgba(201, 169, 110, 0.35);
+  width: 140px;
+  box-shadow: 0 6px 32px rgba(201, 169, 110, 0.35);
   transform: translateY(-3px);
   animation-play-state: paused;
 }
 .chat-bubble:hover .chat-bubble-seed {
-  transform: rotate(-15deg) scale(0.9);
+  transform: rotate(-20deg) scale(0.85);
 }
 .chat-bubble:hover .chat-bubble-text {
   opacity: 1;
 }
 @keyframes seedFloat {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  25% { transform: translateY(-5px) rotate(3deg); }
-  50% { transform: translateY(-2px) rotate(-2deg); }
-  75% { transform: translateY(-6px) rotate(2deg); }
+  0%, 100% { transform: translateY(0px); }
+  30% { transform: translateY(-4px); }
+  60% { transform: translateY(-2px); }
+  80% { transform: translateY(-5px); }
 }
 @keyframes goldPulse {
   0%, 100% { box-shadow: 0 2px 12px rgba(201, 169, 110, 0.1); }
@@ -1323,13 +1323,12 @@ a:hover { color: var(--accent-hover); }
     right: 16px;
   }
   .chat-bubble {
-    width: 38px;
-    height: 50px;
-    border-radius: 50% 50% 50% 50% / 65% 65% 25% 25%;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
   }
   .chat-bubble:hover {
-    width: 38px;
-    border-radius: 50% 50% 50% 50% / 65% 65% 25% 25%;
+    width: 48px;
   }
   .chat-close-btn { font-size: 20px; padding: 6px 10px; }
   .chat-input-bar {

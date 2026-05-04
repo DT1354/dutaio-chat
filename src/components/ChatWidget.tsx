@@ -316,26 +316,47 @@ const loadConversations = async () => {
           onClick={() => { setOpen(true); setHasNewMessage(false); }}
           aria-label="联系作者"
         >
-          <svg className="chat-bubble-seed" width="20" height="20" viewBox="0 0 32 32" fill="none">
-            {/* 蒲公英种子 */}
-            <circle cx="16" cy="18" r="2.5" fill="currentColor" opacity="0.9"/>
-            <line x1="16" y1="20.5" x2="16" y2="30" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-            {/* 种子绒毛 */}
-            <line x1="16" y1="18" x2="10" y2="10" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.7"/>
-            <line x1="16" y1="18" x2="22" y2="10" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.7"/>
-            <line x1="16" y1="18" x2="8" y2="16" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.7"/>
-            <line x1="16" y1="18" x2="24" y2="16" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.7"/>
-            <line x1="16" y1="18" x2="12" y2="6" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.5"/>
-            <line x1="16" y1="18" x2="20" y2="6" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.5"/>
-            <line x1="16" y1="18" x2="16" y2="5" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.6"/>
-            {/* 绒毛顶端小圆 */}
-            <circle cx="10" cy="10" r="1" fill="currentColor" opacity="0.4"/>
-            <circle cx="22" cy="10" r="1" fill="currentColor" opacity="0.4"/>
-            <circle cx="8" cy="16" r="1" fill="currentColor" opacity="0.4"/>
-            <circle cx="24" cy="16" r="1" fill="currentColor" opacity="0.4"/>
-            <circle cx="12" cy="6" r="0.8" fill="currentColor" opacity="0.3"/>
-            <circle cx="20" cy="6" r="0.8" fill="currentColor" opacity="0.3"/>
-            <circle cx="16" cy="5" r="0.8" fill="currentColor" opacity="0.3"/>
+          <svg className="chat-bubble-seed" width="28" height="28" viewBox="0 0 64 64" fill="none">
+            {/* 茎 */}
+            <path d="M32 36 Q31 50 32 60" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
+            {/* 中心 */}
+            <circle cx="32" cy="26" r="3.5" fill="currentColor" opacity="0.85"/>
+            {/* 绒毛 - 放射状 */}
+            <g stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" opacity="0.75">
+              <line x1="32" y1="26" x2="32" y2="8"/>
+              <line x1="32" y1="26" x2="44" y2="14"/>
+              <line x1="32" y1="26" x2="49" y2="26"/>
+              <line x1="32" y1="26" x2="44" y2="38"/>
+              <line x1="32" y1="26" x2="20" y2="14"/>
+              <line x1="32" y1="26" x2="15" y2="26"/>
+              <line x1="32" y1="26" x2="20" y2="38"/>
+              <line x1="32" y1="26" x2="38" y2="10"/>
+              <line x1="32" y1="26" x2="47" y2="20"/>
+              <line x1="32" y1="26" x2="47" y2="33"/>
+              <line x1="32" y1="26" x2="38" y2="42"/>
+              <line x1="32" y1="26" x2="26" y2="10"/>
+              <line x1="32" y1="26" x2="17" y2="20"/>
+              <line x1="32" y1="26" x2="17" y2="33"/>
+              <line x1="32" y1="26" x2="26" y2="42"/>
+            </g>
+            {/* 绒毛顶端 */}
+            <g fill="currentColor" opacity="0.45">
+              <circle cx="32" cy="8" r="1.8"/>
+              <circle cx="44" cy="14" r="1.8"/>
+              <circle cx="49" cy="26" r="1.8"/>
+              <circle cx="44" cy="38" r="1.8"/>
+              <circle cx="20" cy="14" r="1.8"/>
+              <circle cx="15" cy="26" r="1.8"/>
+              <circle cx="20" cy="38" r="1.8"/>
+              <circle cx="38" cy="10" r="1.5"/>
+              <circle cx="47" cy="20" r="1.5"/>
+              <circle cx="47" cy="33" r="1.5"/>
+              <circle cx="38" cy="42" r="1.5"/>
+              <circle cx="26" cy="10" r="1.5"/>
+              <circle cx="17" cy="20" r="1.5"/>
+              <circle cx="17" cy="33" r="1.5"/>
+              <circle cx="26" cy="42" r="1.5"/>
+            </g>
           </svg>
           <span className="chat-bubble-text">聊聊天</span>
           {hasNewMessage && !open && <span className="chat-bubble-dot" />}
