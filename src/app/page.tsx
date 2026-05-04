@@ -131,7 +131,7 @@ function HorizontalGallery({ items, aspectRatio = "1/1", onImageClick, autoPlay 
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canLeft, setCanLeft] = useState(false);
-  const [canRight, setCanRight] = useState(true);
+  const [canRight, setCanRight] = useState(!autoPlay);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollStart, setScrollStart] = useState(0);
@@ -195,8 +195,8 @@ function HorizontalGallery({ items, aspectRatio = "1/1", onImageClick, autoPlay 
 
   return (
     <div style={{ position: "relative" }}>
-      {/* 左箭头 */}
-      {canLeft && (
+      {/* 左箭头（非自动播放时显示） */}
+      {!autoPlay && canLeft && (
         <button
           onClick={() => scrollBy(-1)}
           style={{
@@ -210,8 +210,8 @@ function HorizontalGallery({ items, aspectRatio = "1/1", onImageClick, autoPlay 
           }}
         >‹</button>
       )}
-      {/* 右箭头 */}
-      {canRight && (
+      {/* 右箭头（非自动播放时显示） */}
+      {!autoPlay && canRight && (
         <button
           onClick={() => scrollBy(1)}
           style={{
