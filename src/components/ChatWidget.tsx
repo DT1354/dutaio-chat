@@ -76,7 +76,7 @@ export default function ChatWidget() {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  // 获取用户资料 + 邮箱同步定时器
+  // 获取用户资料
   useEffect(() => {
     if (!user) { setProfile(null); setView("auth"); return; }
     supabase.from("profiles").select("*").eq("id", user.id).single().then(({ data }) => {
@@ -84,14 +84,6 @@ export default function ChatWidget() {
         setProfile(data);
         setView("list");
         loadConversations();
-        // 作者登录时，定时同步邮箱回复
-        if (data.is_owner) {
-          fetch("/api/sync-email").catch(() => {});
-          const interval = setInterval(() => {
-            fetch("/api/sync-email").catch(() => {});
-          }, 3600000); // 每1小时同步一次
-          return () => clearInterval(interval);
-        }
       }
     });
   }, [user]); // eslint-disable-line
@@ -139,7 +131,7 @@ const loadConversations = async () => {
     setConversations(convsFixed);
   };
 
-  // 监听新消息（未读红点）
+  // 监听新消息（未读红点 + 刷新对话列表）
   useEffect(() => {
     const channel = supabase
       .channel("new-message")
@@ -147,10 +139,12 @@ const loadConversations = async () => {
         event: "INSERT", schema: "public", table: "messages",
       }, () => {
         if (view !== "chat") setHasNewMessage(true);
+        // 刷新对话列表，更新 last_message 和未读数
+        loadConversations();
       })
       .subscribe();
     return () => { supabase.removeChannel(channel); };
-  }, [view]);
+  }, [view]); // eslint-disable-line
 
   useEffect(() => {
     if (!activeConv) return;

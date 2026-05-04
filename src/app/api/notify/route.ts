@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       from: `"个人网站消息通知" <${process.env.SMTP_USER}>`,
       to: process.env.SMTP_USER,
       subject: `${convTag} 新消息来自 ${sender}`,
-      text: `${sender} 给你发了一条消息：\n\n${content}\n\n直接回复此邮件即可同步到网站聊天（不要修改邮件主题）`,
+      text: `${sender} 给你发了一条消息：\n\n${content}\n\n请前往网站回复：https://yy.050134.xyz`,
       // 添加自定义 header 方便匹配
       headers: {
         "X-Conversation-Id": conversationId || "",
