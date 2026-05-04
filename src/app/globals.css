@@ -825,6 +825,16 @@ a:hover { color: var(--accent-hover); }
   border-radius: 50%;
   border: 2px solid #0c0c0c;
 }
+.chat-bubble-hidden { display: none !important; }
+.chat-close-mobile {
+  display: none;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
 
 .chat-window {
   position: fixed;
@@ -1146,5 +1156,11 @@ a:hover { color: var(--accent-hover); }
     width: 50px;
     height: 50px;
     font-size: 20px;
+  }
+  .chat-close-mobile { display: block; }
+  .chat-input-bar {
+    padding: 10px 12px;
+    /* 手机底部安全区域 */
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
   }
 }

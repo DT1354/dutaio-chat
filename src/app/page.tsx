@@ -126,8 +126,8 @@ function TiltCard({ children, className = "", style }: { children: React.ReactNo
 }
 
 // 横向滚动画廊
-function HorizontalGallery({ items, aspectRatio = "1/1" }: {
-  items: string[]; aspectRatio?: string;
+function HorizontalGallery({ items, aspectRatio = "1/1", onImageClick, autoPlay = false }: {
+  items: string[]; aspectRatio?: string; onImageClick?: (src: string) => void; autoPlay?: boolean;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canLeft, setCanLeft] = useState(false);
@@ -154,6 +154,35 @@ function HorizontalGallery({ items, aspectRatio = "1/1" }: {
       window.removeEventListener("resize", updateArrows);
     };
   }, [updateArrows]);
+
+  // 自动轮播
+  useEffect(() => {
+    if (!autoPlay) return;
+    const el = scrollRef.current;
+    if (!el) return;
+    let paused = false;
+    const onEnter = () => { paused = true; };
+    const onLeave = () => { paused = false; };
+    el.addEventListener("mouseenter", onEnter);
+    el.addEventListener("touchstart", onEnter);
+    el.addEventListener("mouseleave", onLeave);
+    el.addEventListener("touchend", onLeave);
+    const timer = setInterval(() => {
+      if (paused) return;
+      if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 10) {
+        el.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        el.scrollBy({ left: 296, behavior: "smooth" });
+      }
+    }, 3000);
+    return () => {
+      clearInterval(timer);
+      el.removeEventListener("mouseenter", onEnter);
+      el.removeEventListener("touchstart", onEnter);
+      el.removeEventListener("mouseleave", onLeave);
+      el.removeEventListener("touchend", onLeave);
+    };
+  }, [autoPlay]);
 
   const scrollBy = (dir: number) => {
     const el = scrollRef.current;
@@ -233,7 +262,9 @@ function HorizontalGallery({ items, aspectRatio = "1/1" }: {
               scrollSnapAlign: "start",
               borderRadius: 12,
               overflow: "hidden",
+              cursor: onImageClick ? "zoom-in" : "default",
             }}
+            onClick={() => onImageClick?.(src)}
           >
             <ParallaxImg
               src={src}
@@ -499,7 +530,7 @@ export default function Home() {
               <TextReveal text="AI摄影 & 视觉创作" tag="h2" className="section-title" />
               <p className="section-desc" style={{ marginBottom: 32 }}>精通光效·焦距·构图·色彩四大体系，190+张AI摄影作品</p>
             </Reveal>
-            <HorizontalGallery items={allArtworks} aspectRatio="1/1" />
+            <HorizontalGallery items={allArtworks} aspectRatio="1/1" onImageClick={setZoom} autoPlay />
           </section>
 
           <hr className="divider" />
@@ -511,7 +542,7 @@ export default function Home() {
               <TextReveal text="海报设计" tag="h2" className="section-title" />
               <p className="section-desc" style={{ marginBottom: 32 }}>概念海报 · 视觉叙事 · 排版设计</p>
             </Reveal>
-            <HorizontalGallery items={chatgptArtworks} aspectRatio="3/4" />
+            <HorizontalGallery items={chatgptArtworks} aspectRatio="3/4" onImageClick={setZoom} />
           </section>
 
           <hr className="divider" />
@@ -546,7 +577,7 @@ export default function Home() {
               <TextReveal text="海报与文创设计" tag="h2" className="section-title" />
               <p className="section-desc" style={{ marginBottom: 32 }}>蜜雪冰城中文排版、国风文创、产品摄影</p>
             </Reveal>
-            <HorizontalGallery items={productArtworks} aspectRatio="1/1" />
+            <HorizontalGallery items={productArtworks} aspectRatio="1/1" onImageClick={setZoom} />
           </section>
 
           <hr className="divider" />
@@ -671,7 +702,7 @@ export default function Home() {
             <div className="about-content" style={{ marginTop: 32 }}>
               <Reveal>
                 <div className="about-photo">
-                  <ParallaxImg src={personalPhotos[0]} alt="杜涛" speed={0.08} style={{ borderRadius: 16 }} />
+                  <ParallaxImg src={personalPhotos[0]} alt="杜涛" speed={0.08} style={{ borderRadius: 16, cursor: "zoom-in" }} onClick={() => setZoom(personalPhotos[0]) />
                 </div>
               </Reveal>
               <Reveal delay={150}>

@@ -309,7 +309,7 @@ const loadConversations = async () => {
   // ============ 渲染 ============
   return (
     <>
-      <button className="chat-bubble" onClick={() => { setOpen(!open); if (open) setHasNewMessage(false); }} aria-label="联系作者">
+      <button className={`chat-bubble ${open ? 'chat-bubble-hidden' : ''}`} onClick={() => { setOpen(!open); if (open) setHasNewMessage(false); }} aria-label="联系作者">
         {open ? "✕" : "联系作者"}
         {hasNewMessage && !open && <span className="chat-bubble-dot" />}
       </button>
@@ -323,9 +323,12 @@ const loadConversations = async () => {
               ) : null}
               {view === "otp" ? "验证邮箱" : profile?.is_owner ? "收件箱" : "私信"}
             </span>
-            {user && view !== "otp" && (
-              <button onClick={handleLogout} className="chat-logout">退出</button>
-            )}
+            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <button onClick={() => setOpen(false)} className="chat-close-mobile">✕</button>
+              {user && view !== "otp" && (
+                <button onClick={handleLogout} className="chat-logout">退出</button>
+              )}
+            </div>
           </div>
 
           {/* ===== 登录 / 注册 ===== */}
