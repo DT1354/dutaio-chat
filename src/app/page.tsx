@@ -173,7 +173,7 @@ function HorizontalGallery({ items, aspectRatio = "1/1", onImageClick, autoPlay 
         if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 1) {
           el.scrollLeft = 0;
         } else {
-          el.scrollLeft += 0.8;
+          el.scrollLeft += 1.5;
         }
       }
       rafId = requestAnimationFrame(animate);
