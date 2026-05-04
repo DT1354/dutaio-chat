@@ -348,7 +348,7 @@ const loadConversations = async () => {
               )}
             </div>
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-              <button onClick={() => setOpen(false)} className="chat-close-mobile">✕</button>
+              <button onClick={() => setOpen(false)} className="chat-close-btn">✕</button>
               {user && view !== "otp" && (
                 <button onClick={handleLogout} className="chat-logout">退出</button>
               )}
