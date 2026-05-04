@@ -846,59 +846,44 @@ a:hover { color: var(--accent-hover); }
   z-index: 9999;
 }
 
-/* 悬浮按钮 - 蒲公英胶囊 */
+/* 悬浮蒲公英 - 纯图标无背景 */
 .chat-bubble {
   display: flex;
   align-items: center;
-  height: 48px;
-  min-width: 48px;
-  width: 48px;
-  border-radius: 24px;
-  background: var(--accent);
-  color: #0c0c0c;
-  cursor: pointer;
-  box-shadow: 0 4px 24px rgba(201, 169, 110, 0.2);
-  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, transform 0.2s ease;
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 0;
   justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: none;
+  color: var(--accent);
+  cursor: pointer;
   border: none;
+  padding: 0;
   animation: seedFloat 4s ease-in-out infinite;
+  filter: drop-shadow(0 2px 8px rgba(201, 169, 110, 0.2));
+  transition: filter 0.3s ease, transform 0.2s ease;
 }
 .chat-bubble svg {
   flex-shrink: 0;
-  margin: 0 16px;
 }
 .chat-bubble-seed {
   transition: transform 0.3s ease;
 }
 .chat-bubble-text {
-  color: #0c0c0c;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  opacity: 0;
-  transition: opacity 0.2s ease 0.1s;
-  margin-right: 18px;
+  display: none;
 }
 .chat-bubble:hover {
-  width: 140px;
-  box-shadow: 0 6px 32px rgba(201, 169, 110, 0.35);
-  transform: translateY(-3px);
+  filter: drop-shadow(0 4px 16px rgba(201, 169, 110, 0.4));
+  transform: scale(1.1);
   animation-play-state: paused;
 }
 .chat-bubble:hover .chat-bubble-seed {
-  transform: rotate(-20deg) scale(0.85);
-}
-.chat-bubble:hover .chat-bubble-text {
-  opacity: 1;
+  transform: rotate(-15deg);
 }
 @keyframes seedFloat {
   0%, 100% { transform: translateY(0px); }
-  30% { transform: translateY(-4px); }
-  60% { transform: translateY(-2px); }
-  80% { transform: translateY(-5px); }
+  30% { transform: translateY(-6px); }
+  60% { transform: translateY(-3px); }
+  80% { transform: translateY(-8px); }
 }
 @keyframes goldPulse {
   0%, 100% { box-shadow: 0 2px 12px rgba(201, 169, 110, 0.1); }
@@ -1323,12 +1308,11 @@ a:hover { color: var(--accent-hover); }
     right: 16px;
   }
   .chat-bubble {
-    width: 48px;
-    height: 48px;
-    border-radius: 24px;
+    width: 56px;
+    height: 56px;
   }
   .chat-bubble:hover {
-    width: 48px;
+    width: 56px;
   }
   .chat-close-btn { font-size: 20px; padding: 6px 10px; }
   .chat-input-bar {
