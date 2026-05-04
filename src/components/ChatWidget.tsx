@@ -316,10 +316,28 @@ const loadConversations = async () => {
           onClick={() => { setOpen(true); setHasNewMessage(false); }}
           aria-label="联系作者"
         >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          <svg className="chat-bubble-seed" width="20" height="20" viewBox="0 0 32 32" fill="none">
+            {/* 蒲公英种子 */}
+            <circle cx="16" cy="18" r="2.5" fill="currentColor" opacity="0.9"/>
+            <line x1="16" y1="20.5" x2="16" y2="30" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+            {/* 种子绒毛 */}
+            <line x1="16" y1="18" x2="10" y2="10" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.7"/>
+            <line x1="16" y1="18" x2="22" y2="10" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.7"/>
+            <line x1="16" y1="18" x2="8" y2="16" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.7"/>
+            <line x1="16" y1="18" x2="24" y2="16" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.7"/>
+            <line x1="16" y1="18" x2="12" y2="6" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.5"/>
+            <line x1="16" y1="18" x2="20" y2="6" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.5"/>
+            <line x1="16" y1="18" x2="16" y2="5" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.6"/>
+            {/* 绒毛顶端小圆 */}
+            <circle cx="10" cy="10" r="1" fill="currentColor" opacity="0.4"/>
+            <circle cx="22" cy="10" r="1" fill="currentColor" opacity="0.4"/>
+            <circle cx="8" cy="16" r="1" fill="currentColor" opacity="0.4"/>
+            <circle cx="24" cy="16" r="1" fill="currentColor" opacity="0.4"/>
+            <circle cx="12" cy="6" r="0.8" fill="currentColor" opacity="0.3"/>
+            <circle cx="20" cy="6" r="0.8" fill="currentColor" opacity="0.3"/>
+            <circle cx="16" cy="5" r="0.8" fill="currentColor" opacity="0.3"/>
           </svg>
-          <span className="chat-bubble-text">联系作者</span>
+          <span className="chat-bubble-text">聊聊天</span>
           {hasNewMessage && !open && <span className="chat-bubble-dot" />}
         </button>
       </div>

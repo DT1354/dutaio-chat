@@ -846,44 +846,58 @@ a:hover { color: var(--accent-hover); }
   z-index: 9999;
 }
 
-/* 悬浮按钮 - 金色小圆点 + hover展开文字 */
+/* 悬浮按钮 - 蒲公英种子胶囊 */
 .chat-bubble {
   display: flex;
   align-items: center;
-  gap: 0;
-  height: 44px;
-  width: 44px;
-  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
   background: var(--accent);
   color: #0c0c0c;
   cursor: pointer;
-  box-shadow: 0 2px 16px rgba(201, 169, 110, 0.25);
-  transition: width 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 20px rgba(201, 169, 110, 0.2);
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, transform 0.2s ease;
   overflow: hidden;
   white-space: nowrap;
   padding: 0;
   justify-content: center;
   border: none;
+  animation: seedFloat 4s ease-in-out infinite;
 }
 .chat-bubble svg {
   flex-shrink: 0;
-  margin: 0 15px;
+  margin: 0 12px;
+}
+.chat-bubble-seed {
+  transition: transform 0.3s ease;
 }
 .chat-bubble-text {
   color: #0c0c0c;
   font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.02em;
   opacity: 0;
-  transition: opacity 0.2s ease;
-  margin-right: 14px;
+  transition: opacity 0.2s ease 0.1s;
+  margin-right: 16px;
 }
 .chat-bubble:hover {
-  width: 130px;
-  box-shadow: 0 0 24px rgba(201, 169, 110, 0.35);
-  transform: translateY(-2px);
+  width: 120px;
+  box-shadow: 0 6px 28px rgba(201, 169, 110, 0.35);
+  transform: translateY(-3px);
+  animation-play-state: paused;
+}
+.chat-bubble:hover .chat-bubble-seed {
+  transform: rotate(-15deg) scale(0.9);
 }
 .chat-bubble:hover .chat-bubble-text {
   opacity: 1;
+}
+@keyframes seedFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-4px) rotate(2deg); }
+  50% { transform: translateY(-2px) rotate(-1deg); }
+  75% { transform: translateY(-5px) rotate(1deg); }
 }
 @keyframes goldPulse {
   0%, 100% { box-shadow: 0 2px 12px rgba(201, 169, 110, 0.1); }
@@ -892,13 +906,18 @@ a:hover { color: var(--accent-hover); }
 
 .chat-bubble-dot {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 14px;
-  height: 14px;
+  top: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
   background: #ef4444;
   border-radius: 50%;
   border: 2px solid var(--accent);
+  animation: dotPop 1.5s ease-in-out infinite;
+}
+@keyframes dotPop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
 }
 .chat-bubble-hidden { display: none !important; }
 .chat-close-btn {
@@ -1303,11 +1322,12 @@ a:hover { color: var(--accent-hover); }
     right: 16px;
   }
   .chat-bubble {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
   }
   .chat-bubble:hover {
-    width: 44px;
+    width: 40px;
   }
   .chat-close-btn { font-size: 20px; padding: 6px 10px; }
   .chat-input-bar {
