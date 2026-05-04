@@ -846,7 +846,7 @@ a:hover { color: var(--accent-hover); }
   z-index: 9999;
 }
 
-/* 悬浮按钮 - 小圆点 + hover展开文字 */
+/* 悬浮按钮 - 金色小圆点 + hover展开文字 */
 .chat-bubble {
   display: flex;
   align-items: center;
@@ -854,25 +854,23 @@ a:hover { color: var(--accent-hover); }
   height: 44px;
   width: 44px;
   border-radius: 50%;
-  background: rgba(201, 169, 110, 0.12);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(201, 169, 110, 0.25);
-  color: var(--accent);
+  background: var(--accent);
+  color: #0c0c0c;
   cursor: pointer;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-  transition: width 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 16px rgba(201, 169, 110, 0.25);
+  transition: width 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
   overflow: hidden;
   white-space: nowrap;
   padding: 0;
   justify-content: center;
+  border: none;
 }
 .chat-bubble svg {
   flex-shrink: 0;
   margin: 0 15px;
 }
 .chat-bubble-text {
-  color: var(--accent);
+  color: #0c0c0c;
   font-size: 12px;
   font-weight: 600;
   opacity: 0;
@@ -881,14 +879,11 @@ a:hover { color: var(--accent-hover); }
 }
 .chat-bubble:hover {
   width: 130px;
-  background: var(--accent);
-  color: #0c0c0c;
-  box-shadow: 0 0 24px rgba(201, 169, 110, 0.3);
+  box-shadow: 0 0 24px rgba(201, 169, 110, 0.35);
   transform: translateY(-2px);
 }
 .chat-bubble:hover .chat-bubble-text {
   opacity: 1;
-  color: #0c0c0c;
 }
 @keyframes goldPulse {
   0%, 100% { box-shadow: 0 2px 12px rgba(201, 169, 110, 0.1); }
@@ -903,15 +898,7 @@ a:hover { color: var(--accent-hover); }
   height: 14px;
   background: #ef4444;
   border-radius: 50%;
-  border: 2px solid rgba(12, 12, 12, 0.9);
-  font-size: 0;
-}
-/* 有未读消息时按钮变金色 */
-.chat-bubble:has(.chat-bubble-dot) {
-  background: linear-gradient(135deg, var(--accent), #b8943e);
-  color: #0c0c0c;
-  border-color: var(--accent);
-  animation: goldPulse 2.5s ease-in-out infinite;
+  border: 2px solid var(--accent);
 }
 .chat-bubble-hidden { display: none !important; }
 .chat-close-btn {
