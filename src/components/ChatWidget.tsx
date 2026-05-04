@@ -96,22 +96,20 @@ const loadConversations = async () => {
 
     if (!data || data.length === 0) return;
 
-    // 补全 last_message + 计算未读数，一次性循环
+    // 从 messages 表取最新消息 + 计算未读数
     const convsFixed = await Promise.all(data.map(async (conv) => {
       let fixed = { ...conv };
 
-      // 如果 last_message 为空，从 messages 表取最后一条
-      if (!conv.last_message) {
-        const { data: msgs } = await supabase
-          .from("messages")
-          .select("content, created_at")
-          .eq("conversation_id", conv.id)
-          .order("created_at", { ascending: false })
-          .limit(1);
-        if (msgs && msgs.length > 0) {
-          fixed.last_message = msgs[0].content;
-          fixed.last_message_at = msgs[0].created_at;
-        }
+      // 始终从 messages 表取最新的消息内容
+      const { data: msgs } = await supabase
+        .from("messages")
+        .select("content, created_at")
+        .eq("conversation_id", conv.id)
+        .order("created_at", { ascending: false })
+        .limit(1);
+      if (msgs && msgs.length > 0) {
+        fixed.last_message = msgs[0].content;
+        fixed.last_message_at = msgs[0].created_at;
       }
 
       // 计算未读数

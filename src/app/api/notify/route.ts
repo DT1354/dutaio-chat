@@ -8,21 +8,29 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "缺少参数" }, { status: 400 });
     }
 
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = process.env.SMTP_PASS;
+    
+    if (!smtpUser || !smtpPass) {
+      console.error("邮件发送失败: SMTP_USER 或 SMTP_PASS 未配置");
+      return NextResponse.json({ error: "邮件未配置" }, { status: 500 });
+    }
+
     const transporter = nodemailer.createTransport({
       host: "smtp.163.com",
       port: 465,
       secure: true,
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        user: smtpUser,
+        pass: smtpPass,
       },
     });
 
     // subject 里带 conversationId，方便回复时匹配
     const convTag = conversationId ? `[chat:${conversationId}]` : "";
     await transporter.sendMail({
-      from: `"个人网站消息通知" <${process.env.SMTP_USER}>`,
-      to: process.env.SMTP_USER,
+      from: `"个人网站消息通知" <${smtpUser}>`,
+      to: smtpUser,
       subject: `${convTag} 新消息来自 ${sender}`,
       text: `${sender} 给你发了一条消息：\n\n${content}\n\n请前往网站回复：https://yy.050134.xyz`,
       // 添加自定义 header 方便匹配
