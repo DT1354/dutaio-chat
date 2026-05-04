@@ -316,7 +316,7 @@ const loadConversations = async () => {
           onClick={() => { setOpen(true); setHasNewMessage(false); }}
           aria-label="联系作者"
         >
-          <svg className="chat-bubble-seed" width="28" height="28" viewBox="0 0 64 64" fill="none">
+          <svg className="chat-bubble-seed" width="48" height="48" viewBox="0 0 64 64" fill="none">
             {/* 茎 */}
             <path d="M32 36 Q31 50 32 60" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
             {/* 中心 */}
