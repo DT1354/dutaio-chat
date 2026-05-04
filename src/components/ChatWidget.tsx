@@ -309,20 +309,44 @@ const loadConversations = async () => {
   // ============ 渲染 ============
   return (
     <>
-      <button className={`chat-bubble ${open ? 'chat-bubble-hidden' : ''}`} onClick={() => { setOpen(!open); if (open) setHasNewMessage(false); }} aria-label="联系作者">
-        {open ? "✕" : "联系作者"}
-        {hasNewMessage && !open && <span className="chat-bubble-dot" />}
-      </button>
+      {/* 悬浮按钮 - 图标 + hover 展开文字 */}
+      <div className="chat-launcher-wrapper">
+        <button
+          className={`chat-bubble ${open ? 'chat-bubble-hidden' : ''}`}
+          onClick={() => { setOpen(true); setHasNewMessage(false); }}
+          aria-label="联系作者"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span className="chat-bubble-text">联系作者</span>
+          {hasNewMessage && !open && <span className="chat-bubble-dot" />}
+        </button>
+      </div>
 
       {open && (
         <div className="chat-window" onWheel={(e) => e.stopPropagation()} onTouchMove={(e) => e.stopPropagation()}>
           <div className="chat-header">
-            <span className="chat-header-title">
-              {view === "chat" && activeConv ? (
+            <div className="chat-header-left">
+              {view === "chat" && activeConv && (
                 <button onClick={() => { setView("list"); setActiveConv(null); setMessages([]); loadConversations(); }} className="chat-back-btn">←</button>
-              ) : null}
-              {view === "otp" ? "验证邮箱" : profile?.is_owner ? "收件箱" : "私信"}
-            </span>
+              )}
+              {view === "chat" && activeConv ? (
+                <div className="chat-header-info">
+                  <span className="chat-header-name">{activeConvProfile?.username ?? "访客"}</span>
+                </div>
+              ) : (
+                <>
+                  <div className="chat-header-avatar">杜</div>
+                  <div className="chat-header-info">
+                    <span className="chat-header-name">
+                      {view === "otp" ? "验证邮箱" : profile?.is_owner ? "收件箱" : "杜涛"}
+                    </span>
+                    {view !== "otp" && <span className="chat-header-status">在线</span>}
+                  </div>
+                </>
+              )}
+            </div>
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
               <button onClick={() => setOpen(false)} className="chat-close-mobile">✕</button>
               {user && view !== "otp" && (
@@ -400,7 +424,16 @@ const loadConversations = async () => {
           {view === "list" && (
             <div className="chat-list">
               {!profile?.is_owner && (
-                <button className="chat-new-btn" onClick={startNewChat}>✏️ 给杜涛发消息</button>
+                <>
+                  <div className="chat-welcome">
+                    <div className="chat-welcome-text">有什么想聊的？</div>
+                  </div>
+                  <div className="chat-quick-replies">
+                    <button className="chat-quick-btn" onClick={async () => { const id = await createOrGetConversation(); if (id) { openChat(id); setTimeout(() => { setInput("想看看你的作品"); }, 300); } }}>📸 看看作品</button>
+                    <button className="chat-quick-btn" onClick={async () => { const id = await createOrGetConversation(); if (id) { openChat(id); setTimeout(() => { setInput("想和你合作"); }, 300); } }}>🤝 合作聊聊</button>
+                    <button className="chat-quick-btn" onClick={async () => { const id = await createOrGetConversation(); if (id) { openChat(id); setTimeout(() => { setInput("你好，打个招呼👋"); }, 300); } }}>👋 打个招呼</button>
+                  </div>
+                </>
               )}
               {conversations.length === 0 && <div className="chat-empty">暂无对话</div>}
               {conversations.map((conv) => (
