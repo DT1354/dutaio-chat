@@ -155,28 +155,32 @@ function HorizontalGallery({ items, aspectRatio = "1/1", onImageClick, autoPlay 
     };
   }, [updateArrows]);
 
-  // 自动轮播
+  // 自动流动（marquee 效果）
   useEffect(() => {
     if (!autoPlay) return;
     const el = scrollRef.current;
     if (!el) return;
     let paused = false;
+    let rafId: number;
     const onEnter = () => { paused = true; };
     const onLeave = () => { paused = false; };
     el.addEventListener("mouseenter", onEnter);
     el.addEventListener("touchstart", onEnter);
     el.addEventListener("mouseleave", onLeave);
     el.addEventListener("touchend", onLeave);
-    const timer = setInterval(() => {
-      if (paused) return;
-      if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 10) {
-        el.scrollTo({ left: 0, behavior: "smooth" });
-      } else {
-        el.scrollBy({ left: 320, behavior: "smooth" });
+    const animate = () => {
+      if (!paused) {
+        if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 1) {
+          el.scrollLeft = 0;
+        } else {
+          el.scrollLeft += 0.8;
+        }
       }
-    }, 2000);
+      rafId = requestAnimationFrame(animate);
+    };
+    rafId = requestAnimationFrame(animate);
     return () => {
-      clearInterval(timer);
+      cancelAnimationFrame(rafId);
       el.removeEventListener("mouseenter", onEnter);
       el.removeEventListener("touchstart", onEnter);
       el.removeEventListener("mouseleave", onLeave);
