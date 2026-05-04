@@ -148,6 +148,52 @@ a:hover { color: var(--accent-hover); }
 }
 .nav-links a:hover { color: #fff; }
 
+/* 导航栏聊天按钮 */
+.nav-chat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(201, 169, 110, 0.4);
+  background: rgba(201, 169, 110, 0.08);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.nav-chat-btn:hover {
+  background: var(--accent);
+  color: #0c0c0c;
+  border-color: var(--accent);
+}
+.nav-chat-btn svg {
+  flex-shrink: 0;
+}
+
+/* 手机菜单里的聊天按钮 */
+.mobile-menu-chat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: 1px solid rgba(201, 169, 110, 0.3);
+  border-radius: 10px;
+  background: rgba(201, 169, 110, 0.06);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.2s ease;
+}
+.mobile-menu-chat:hover {
+  background: var(--accent);
+  color: #0c0c0c;
+}
+
 /* 汉堡菜单按钮（手机端） */
 .nav-burger {
   display: none;
@@ -800,66 +846,72 @@ a:hover { color: var(--accent-hover); }
   z-index: 9999;
 }
 
-/* 悬浮按钮 - 圆形图标 + hover展开文字 */
+/* 悬浮按钮 - 小圆点 + hover展开文字 */
 .chat-bubble {
   display: flex;
   align-items: center;
   gap: 0;
-  height: 52px;
-  width: 52px;
+  height: 44px;
+  width: 44px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), #b8943e);
-  color: #0c0c0c;
+  background: rgba(201, 169, 110, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(201, 169, 110, 0.25);
+  color: var(--accent);
   cursor: pointer;
-  box-shadow: 0 0 20px rgba(201, 169, 110, 0.3);
-  transition: width 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  transition: width 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, transform 0.2s ease;
   overflow: hidden;
   white-space: nowrap;
   padding: 0;
   justify-content: center;
-  border: none;
-  animation: goldPulse 2.5s ease-in-out infinite;
 }
 .chat-bubble svg {
   flex-shrink: 0;
   margin: 0 15px;
 }
 .chat-bubble-text {
-  color: #0c0c0c;
-  font-size: 13px;
+  color: var(--accent);
+  font-size: 12px;
   font-weight: 600;
   opacity: 0;
   transition: opacity 0.2s ease;
-  margin-right: 16px;
+  margin-right: 14px;
 }
 .chat-bubble:hover {
-  width: 140px;
-  box-shadow: 0 0 35px rgba(201, 169, 110, 0.3);
+  width: 130px;
+  background: var(--accent);
+  color: #0c0c0c;
+  box-shadow: 0 0 24px rgba(201, 169, 110, 0.3);
   transform: translateY(-2px);
 }
 .chat-bubble:hover .chat-bubble-text {
   opacity: 1;
+  color: #0c0c0c;
 }
 @keyframes goldPulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(201, 169, 110, 0.15); }
-  50% { box-shadow: 0 0 30px rgba(201, 169, 110, 0.25); }
+  0%, 100% { box-shadow: 0 2px 12px rgba(201, 169, 110, 0.1); }
+  50% { box-shadow: 0 2px 20px rgba(201, 169, 110, 0.25); }
 }
 
 .chat-bubble-dot {
   position: absolute;
-  top: 2px;
-  right: 2px;
-  width: 16px;
-  height: 16px;
+  top: 0;
+  right: 0;
+  width: 14px;
+  height: 14px;
   background: #ef4444;
   border-radius: 50%;
-  border: 2px solid #0c0c0c;
-  font-size: 9px;
-  font-weight: 700;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: 2px solid rgba(12, 12, 12, 0.9);
+  font-size: 0;
+}
+/* 有未读消息时按钮变金色 */
+.chat-bubble:has(.chat-bubble-dot) {
+  background: linear-gradient(135deg, var(--accent), #b8943e);
+  color: #0c0c0c;
+  border-color: var(--accent);
+  animation: goldPulse 2.5s ease-in-out infinite;
 }
 .chat-bubble-hidden { display: none !important; }
 .chat-close-btn {
@@ -1264,12 +1316,11 @@ a:hover { color: var(--accent-hover); }
     right: 16px;
   }
   .chat-bubble {
-    width: 52px;
-    height: 52px;
-    animation: none;
+    width: 44px;
+    height: 44px;
   }
   .chat-bubble:hover {
-    width: 52px;
+    width: 44px;
   }
   .chat-close-btn { font-size: 20px; padding: 6px 10px; }
   .chat-input-bar {

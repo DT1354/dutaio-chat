@@ -484,6 +484,10 @@ export default function Home() {
               <a href="#projects">项目</a>
               <a href="#about">关于</a>
               <a href="#contact">联系</a>
+              <button className="nav-chat-btn" onClick={() => document.querySelector<HTMLElement>('.chat-launcher-wrapper button')?.click()}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                聊天
+              </button>
             </div>
             <button className="nav-burger" onClick={() => setMenuOpen(!menuOpen)} aria-label="菜单">
               <span /><span /><span />
@@ -497,6 +501,10 @@ export default function Home() {
             <a href="#projects" onClick={closeMenu}>项目</a>
             <a href="#about" onClick={closeMenu}>关于</a>
             <a href="#contact" onClick={closeMenu}>联系</a>
+            <button className="mobile-menu-chat" onClick={() => { closeMenu(); document.querySelector<HTMLElement>('.chat-launcher-wrapper button')?.click(); }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              聊天
+            </button>
           </div>
           {menuOpen && <div className="mobile-backdrop" onClick={closeMenu} />}
 
