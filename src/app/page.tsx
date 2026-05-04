@@ -702,7 +702,13 @@ export default function Home() {
             <div className="about-content" style={{ marginTop: 32 }}>
               <Reveal>
                 <div className="about-photo">
-                  <ParallaxImg src={personalPhotos[0]} alt="杜涛" speed={0.08} style={{ borderRadius: 16, cursor: "zoom-in" }} onClick={() => setZoom(personalPhotos[0]) />
+                  <ParallaxImg
+                    src={personalPhotos[0]}
+                    alt="杜涛"
+                    speed={0.08}
+                    style={{ borderRadius: 16, cursor: "zoom-in" }}
+                    onClick={() => setZoom(personalPhotos[0])}
+                  />
                 </div>
               </Reveal>
               <Reveal delay={150}>
