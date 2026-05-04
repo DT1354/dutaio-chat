@@ -231,7 +231,7 @@ function HorizontalGallery({ items, aspectRatio = "1/1", onImageClick, autoPlay 
           display: "flex",
           gap: 16,
           overflowX: "auto",
-          scrollSnapType: "x proximity",
+          scrollSnapType: autoPlay ? "none" : "x proximity",
           paddingBottom: 12,
           paddingLeft: 4,
           paddingRight: 4,
