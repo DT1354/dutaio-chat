@@ -172,9 +172,9 @@ function HorizontalGallery({ items, aspectRatio = "1/1", onImageClick, autoPlay 
       if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 10) {
         el.scrollTo({ left: 0, behavior: "smooth" });
       } else {
-        el.scrollBy({ left: 296, behavior: "smooth" });
+        el.scrollBy({ left: 320, behavior: "smooth" });
       }
-    }, 3000);
+    }, 2000);
     return () => {
       clearInterval(timer);
       el.removeEventListener("mouseenter", onEnter);
