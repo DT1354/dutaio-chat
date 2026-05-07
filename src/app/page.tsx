@@ -89,18 +89,6 @@ function ParallaxImg({ src, alt, speed = 0.08, style, onClick }: {
           pointerEvents: "none",
         }}
       />
-      <div style={{
-        position: "absolute",
-        bottom: 8,
-        right: 10,
-        color: "rgba(201, 169, 110, 0.35)",
-        fontSize: 11,
-        fontWeight: 600,
-        letterSpacing: "0.08em",
-        fontFamily: "sans-serif",
-        pointerEvents: "none",
-        userSelect: "none",
-      }}>杜涛</div>
     </div>
   );
 }
@@ -789,18 +777,6 @@ export default function Home() {
               <button className="zoom-close" onClick={() => setZoom(null)}>×</button>
               <div style={{ position: "relative", display: "inline-block" }} onClick={(e) => e.stopPropagation()}>
                 <img src={zoom} alt="放大查看" onContextMenu={(e) => e.preventDefault()} draggable={false} style={{ userSelect: "none" }} />
-                <div style={{
-                  position: "absolute",
-                  bottom: 12,
-                  right: 16,
-                  color: "rgba(201, 169, 110, 0.3)",
-                  fontSize: 14,
-                  fontWeight: 600,
-                  letterSpacing: "0.1em",
-                  fontFamily: "sans-serif",
-                  pointerEvents: "none",
-                  userSelect: "none",
-                }}>杜涛</div>
               </div>
             </div>
           )}
