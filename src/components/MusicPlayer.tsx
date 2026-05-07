@@ -5,11 +5,37 @@ import { useState, useRef, useEffect } from "react";
 export default function MusicPlayer() {
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const triedAutoPlay = useRef(false);
 
+  // 设置音量
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = 0.3;
     }
+  }, []);
+
+  // 用户首次交互时自动播放（绕过浏览器限制）
+  useEffect(() => {
+    if (triedAutoPlay.current) return;
+    triedAutoPlay.current = true;
+
+    const tryPlay = () => {
+      const audio = audioRef.current;
+      if (!audio) return;
+      audio.play().then(() => {
+        setPlaying(true);
+      }).catch(() => {
+        // 浏览器仍然阻止，保持暂停状态
+      });
+      // 只触发一次
+      document.removeEventListener("click", tryPlay);
+      document.removeEventListener("touchstart", tryPlay);
+      document.removeEventListener("scroll", tryPlay);
+    };
+
+    document.addEventListener("click", tryPlay, { once: false });
+    document.addEventListener("touchstart", tryPlay, { once: false });
+    document.addEventListener("scroll", tryPlay, { once: true, passive: true });
   }, []);
 
   const toggle = () => {
@@ -25,7 +51,7 @@ export default function MusicPlayer() {
 
   return (
     <>
-      <audio ref={audioRef} src="/assets/audio/bgm.mp3" loop preload="none" />
+      <audio ref={audioRef} src="/assets/audio/bgm.mp3" loop preload="auto" />
       <button
         onClick={toggle}
         aria-label={playing ? "暂停音乐" : "播放音乐"}

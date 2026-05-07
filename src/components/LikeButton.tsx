@@ -45,15 +45,31 @@ export function LikeButton({ itemId }: { itemId: string }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const key = `liked_${itemId}`;
-    const today = new Date().toISOString().slice(0, 10);
     const stored = localStorage.getItem(key);
-    if (stored === today) setLocalLiked(true);
+    if (stored) setLocalLiked(true);
   }, [itemId]);
 
   const handleLike = async () => {
-    if (loading || localLiked) return;
+    if (loading) return;
     setLoading(true);
     try {
+      // 已赞 → 取消
+      if (localLiked) {
+        const res = await fetch("/api/likes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ item_id: itemId, action: "unlike" }),
+        });
+        const data = await res.json();
+        if (data.likes !== undefined) {
+          globalLikes[itemId] = data.likes;
+          localStorage.removeItem(`liked_${itemId}`);
+          setLocalLiked(false);
+          listeners.forEach((fn) => fn());
+        }
+        return;
+      }
+      // 未赞 → 点赞
       const res = await fetch("/api/likes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -62,8 +78,7 @@ export function LikeButton({ itemId }: { itemId: string }) {
       const data = await res.json();
       if (data.likes !== undefined) {
         globalLikes[itemId] = data.likes;
-        const today = new Date().toISOString().slice(0, 10);
-        localStorage.setItem(`liked_${itemId}`, today);
+        localStorage.setItem(`liked_${itemId}`, "1");
         setLocalLiked(true);
         listeners.forEach((fn) => fn());
       }
@@ -87,7 +102,7 @@ export function LikeButton({ itemId }: { itemId: string }) {
         border: `1px solid ${localLiked ? "var(--accent)" : "var(--border)"}`,
         borderRadius: 20,
         padding: "2px 10px",
-        cursor: localLiked ? "default" : "pointer",
+        cursor: loading ? "wait" : "pointer",
         color: localLiked ? "var(--accent)" : "var(--text-muted)",
         fontSize: 12,
         lineHeight: "20px",
