@@ -25,10 +25,25 @@ function makeWatermarkSvg(width, height) {
   </svg>`;
 }
 
-async function processFile(srcPath, dstPath) {
-  const ext = path.extname(srcPath).toLowerCase();
-  if (![".webp", ".jpg", ".jpeg", ".png"].includes(ext)) return;
+// 递归收集所有图片文件（保持相对路径）
+function collectImages(rootDir) {
+  const results = [];
+  function walk(dir, rel) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      const relPath = rel ? `${rel}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) {
+        walk(full, relPath);
+      } else if (/\.(webp|jpg|jpeg|png)$/i.test(entry.name)) {
+        results.push({ full, relPath });
+      }
+    }
+  }
+  walk(rootDir, "");
+  return results;
+}
 
+async function processFile(srcPath, dstPath) {
   try {
     const meta = await sharp(srcPath).metadata();
     const svg = Buffer.from(makeWatermarkSvg(meta.width, meta.height));
@@ -47,28 +62,28 @@ async function processFile(srcPath, dstPath) {
 async function main() {
   let total = 0, done = 0;
 
-  // Phase 1: Count files
+  // Phase 1: Count all files recursively
   for (const dir of DIRS) {
     const full = path.resolve(__dirname, dir);
     if (!fs.existsSync(full)) continue;
-    const files = fs.readdirSync(full).filter(f => /\.(webp|jpg|jpeg|png)$/i.test(f));
-    total += files.length;
+    total += collectImages(full).length;
   }
 
   console.log(`Found ${total} images to watermark`);
 
-  // Phase 2: Write watermarked to new dirs
+  // Phase 2: Write watermarked to new dirs (preserving subdirectory structure)
   for (const dir of DIRS) {
     const srcDir = path.resolve(__dirname, dir);
     const dstDir = srcDir + "-watermarked";
     if (!fs.existsSync(srcDir)) continue;
-    if (!fs.existsSync(dstDir)) fs.mkdirSync(dstDir, { recursive: true });
 
-    const files = fs.readdirSync(srcDir).filter(f => /\.(webp|jpg|jpeg|png)$/i.test(f));
+    const files = collectImages(srcDir);
 
-    for (const file of files) {
-      const srcPath = path.join(srcDir, file);
-      const dstPath = path.join(dstDir, file);
+    for (const { full: srcPath, relPath } of files) {
+      const dstPath = path.join(dstDir, relPath);
+      const dstFileDir = path.dirname(dstPath);
+      if (!fs.existsSync(dstFileDir)) fs.mkdirSync(dstFileDir, { recursive: true });
+
       const ok = await processFile(srcPath, dstPath);
       if (ok) done++;
       process.stdout.write(`\r${done}/${total}`);
@@ -87,17 +102,15 @@ async function main() {
       try {
         fs.renameSync(srcDir, backupDir);
         fs.renameSync(dstDir, srcDir);
-        // Remove backup
         fs.rmSync(backupDir, { recursive: true, force: true });
         console.log(`  Swapped: ${path.basename(dir)}`);
       } catch (err) {
         console.error(`  SWAP FAIL: ${dir} - ${err.message}`);
       }
     }
-    console.log("Done! Directories swapped successfully.");
+    console.log("Done!");
   } else {
-    console.log(`\n${total - done} files failed. Fix errors and retry.`);
-    console.log("Watermarked files are in *-watermarked dirs (not yet swapped).");
+    console.log(`\n${total - done} files failed.`);
   }
 }
 
