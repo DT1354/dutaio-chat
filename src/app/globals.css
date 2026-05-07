@@ -1321,3 +1321,9 @@ a:hover { color: var(--accent-hover); }
     padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
   }
 }
+
+/* ===== Music Player ===== */
+@keyframes musicPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}

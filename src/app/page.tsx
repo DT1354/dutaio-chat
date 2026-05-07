@@ -10,6 +10,8 @@ import ChatWidget from "@/components/ChatWidget";
 import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/CustomCursor";
 import { TextReveal, CountUp, useTypewriter } from "@/components/Animations";
+import MusicPlayer from "@/components/MusicPlayer";
+import { LikeButton, LikesProvider } from "@/components/LikeButton";
 
 // 滚动渐显 hook
 function useReveal() {
@@ -271,6 +273,7 @@ function HorizontalGallery({ items, aspectRatio = "1/1", onImageClick, autoPlay 
               borderRadius: 12,
               overflow: "hidden",
               cursor: onImageClick ? "zoom-in" : "default",
+              position: "relative",
             }}
             onClick={() => onImageClick?.(src)}
           >
@@ -280,6 +283,9 @@ function HorizontalGallery({ items, aspectRatio = "1/1", onImageClick, autoPlay 
               speed={0.08}
               style={{ aspectRatio, borderRadius: 12 }}
             />
+            <div style={{ position: "absolute", bottom: 8, left: 8 }} onClick={(e) => e.stopPropagation()}>
+              <LikeButton itemId={src} />
+            </div>
           </div>
         ))}
       </div>
@@ -608,8 +614,11 @@ export default function Home() {
             </Reveal>
             <div className="app-grid">
               {appScreens.map((src, i) => (
-                <div key={i} className="app-item" onClick={() => setZoom(src)}>
+                <div key={i} className="app-item" onClick={() => setZoom(src)} style={{ position: "relative" }}>
                   <ParallaxImg src={src} alt={`APP ${i + 1}`} speed={0.1} style={{ borderRadius: 12 }} />
+                  <div style={{ position: "absolute", bottom: 8, left: 8 }} onClick={(e) => e.stopPropagation()}>
+                    <LikeButton itemId={src} />
+                  </div>
                 </div>
               ))}
             </div>
@@ -688,9 +697,12 @@ export default function Home() {
               <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 12, color: "var(--accent)" }}>爆款文章</h3>
               <div className="articles-list" style={{ marginBottom: 40 }}>
                 {articles.map((a, i) => (
-                  <div key={i} className="article-item">
-                    <span style={{ color: "var(--accent)", marginRight: 8, fontWeight: 700 }}>{String(i + 1).padStart(2, "0")}</span>
-                    {a}
+                  <div key={i} className="article-item" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+                    <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <span style={{ color: "var(--accent)", fontWeight: 700 }}>{String(i + 1).padStart(2, "0")}</span>
+                      {a}
+                    </span>
+                    <LikeButton itemId={`article:${i}`} />
                   </div>
                 ))}
               </div>
@@ -699,8 +711,11 @@ export default function Home() {
               <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 12, color: "var(--accent)" }}>知识库一览</h3>
               <div className="kb-grid">
                 {knowledgeBaseScreens.map((src, i) => (
-                  <div key={i} className="kb-item" onClick={() => setZoom(src)}>
+                  <div key={i} className="kb-item" onClick={() => setZoom(src)} style={{ position: "relative" }}>
                     <ParallaxImg src={src} alt={`知识库 ${i + 1}`} speed={0.1} style={{ borderRadius: 12 }} />
+                    <div style={{ position: "absolute", bottom: 6, left: 6 }} onClick={(e) => e.stopPropagation()}>
+                      <LikeButton itemId={`kb:${src}`} />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -784,6 +799,12 @@ export default function Home() {
 
         {/* 聊天组件 */}
         <ChatWidget />
+
+        {/* 背景音乐 */}
+        <MusicPlayer />
+
+        {/* 点赞数据预加载 */}
+        <LikesProvider />
       </SmoothScroll>
     </>
   );
