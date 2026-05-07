@@ -700,14 +700,7 @@ export default function Home() {
               <div className="kb-grid">
                 {knowledgeBaseScreens.map((src, i) => (
                   <div key={i} className="kb-item" onClick={() => setZoom(src)}>
-                    <img
-                      src={src}
-                      alt={`知识库 ${i + 1}`}
-                      loading="lazy"
-                      onContextMenu={(e) => e.preventDefault()}
-                      draggable={false}
-                      style={{ width: "100%", display: "block", userSelect: "none", pointerEvents: "none" }}
-                    />
+                    <ParallaxImg src={src} alt={`知识库 ${i + 1}`} speed={0.1} style={{ borderRadius: 12 }} />
                   </div>
                 ))}
               </div>
