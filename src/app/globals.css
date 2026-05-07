@@ -469,6 +469,7 @@ a:hover { color: var(--accent-hover); }
   object-fit: contain;
   border-radius: 6px;
   cursor: default;
+  pointer-events: none;
 }
 
 .zoom-close {

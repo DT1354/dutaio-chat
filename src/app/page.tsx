@@ -73,18 +73,34 @@ function ParallaxImg({ src, alt, speed = 0.08, style, onClick }: {
   }, [speed]);
 
   return (
-    <div ref={ref} style={{ overflow: "hidden", ...style }} onClick={onClick}>
+    <div ref={ref} style={{ overflow: "hidden", position: "relative", ...style }} onClick={onClick}>
       <img
         src={src}
         alt={alt}
         loading="lazy"
+        onContextMenu={(e) => e.preventDefault()}
+        draggable={false}
         style={{
           width: "100%",
           height: "120%",
           objectFit: "cover",
           willChange: "transform",
+          userSelect: "none",
+          pointerEvents: "none",
         }}
       />
+      <div style={{
+        position: "absolute",
+        bottom: 8,
+        right: 10,
+        color: "rgba(201, 169, 110, 0.35)",
+        fontSize: 11,
+        fontWeight: 600,
+        letterSpacing: "0.08em",
+        fontFamily: "sans-serif",
+        pointerEvents: "none",
+        userSelect: "none",
+      }}>杜涛</div>
     </div>
   );
 }
@@ -771,7 +787,21 @@ export default function Home() {
           {zoom && (
             <div className="zoom-overlay" onClick={() => setZoom(null)}>
               <button className="zoom-close" onClick={() => setZoom(null)}>×</button>
-              <img src={zoom} alt="放大查看" onClick={(e) => e.stopPropagation()} />
+              <div style={{ position: "relative", display: "inline-block" }} onClick={(e) => e.stopPropagation()}>
+                <img src={zoom} alt="放大查看" onContextMenu={(e) => e.preventDefault()} draggable={false} style={{ userSelect: "none" }} />
+                <div style={{
+                  position: "absolute",
+                  bottom: 12,
+                  right: 16,
+                  color: "rgba(201, 169, 110, 0.3)",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  letterSpacing: "0.1em",
+                  fontFamily: "sans-serif",
+                  pointerEvents: "none",
+                  userSelect: "none",
+                }}>杜涛</div>
+              </div>
             </div>
           )}
         </div>
